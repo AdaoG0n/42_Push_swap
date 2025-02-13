@@ -6,7 +6,7 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:00:14 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 10:46:09 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:48:18 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_stack	*create_node(int value)
 	if (new_node == NULL)
 		return (NULL);
 	new_node->value = value;
+	new_node->index = -1;
 	new_node->next = NULL;
 	return (new_node);
 }

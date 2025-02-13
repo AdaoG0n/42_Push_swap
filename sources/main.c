@@ -6,7 +6,7 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:59:22 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 11:27:21 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:03:53 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ t_stack	*create_stack_arr(int argc, char **argv)
 	int			i;
 	int			num;
 
-	i = argc - 1;
+	i = 1;
 	stack_a = NULL;
 	num = 0;
-	while (i > 0)
+	while (i < argc)
 	{
 		if(!is_valid_argument(argv[i]))
 		{
@@ -57,7 +57,7 @@ t_stack	*create_stack_arr(int argc, char **argv)
         }
 		num = ft_atoi(argv[i]);
 		push(&stack_a, num);
-		i--;
+		i++;
 	}
 	return (stack_a);		
 }
@@ -71,7 +71,7 @@ t_stack    *parse_arguments(int argc, char **argv)
 		return (create_stack_arr(argc, argv));
 }	
 
-int	main(int argc, char **argv)  // Main to test nodes
+/*int	main(int argc, char **argv)  // Main to test nodes
 {
 	t_stack	*stack_a;
 	t_stack 	*current;
@@ -85,12 +85,6 @@ int	main(int argc, char **argv)  // Main to test nodes
 	}
 	if (argc < 2)
 		return (0);
-	if (!validate_arguments(stack_a))
-	{
-        free_stack(&stack_a);
-        return (1);
-    }
-
 	current = stack_a;
 	ft_printf("Stack A:\n");
 	while (current != NULL)
@@ -103,4 +97,46 @@ int	main(int argc, char **argv)  // Main to test nodes
 	
 	free_stack(&stack_a);
 	return (0);
+}*/
+
+int main(int argc, char **argv)
+{
+    t_stack *stack_a;
+    t_stack *stack_b;
+    int size;
+
+    if (argc < 2)
+        return (0);
+    stack_a = parse_arguments(argc, argv);
+    if (!stack_a)
+    {
+        ft_putstr_fd("Error\n", 2);
+        return (1);
+    }
+    stack_b = NULL;
+    size = stack_size(stack_a);
+	/*f (has_duplicate(stack_a, stack_a->value))
+	{
+    	free_stack(&stack_a);
+		stack_a = NULL;
+    	ft_error("Error");
+    	return (1);
+	}*/
+    if (is_sorted(stack_a))
+    return (free_stack(&stack_a), 0);
+    if (size == 2)
+        sa(&stack_a);
+    else if (size == 3)
+        sort_three(&stack_a);
+    else if (size <= 5)
+        sort_five(&stack_a, &stack_b);
+    else
+		assign_indexes(stack_a);
+        radix_sort(&stack_a, &stack_b);
+
+    free_stack(&stack_a);
+    free_stack(&stack_b);
+
+    return (0);
 }
+

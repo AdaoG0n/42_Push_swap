@@ -6,18 +6,17 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 19:29:34 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/12 19:29:35 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:17:42 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void    pa(t_stack **stack_b, t_stack **stack_a)
+void pa(t_stack **stack_b, t_stack **stack_a)
 {
     t_stack *temp;
 
-    temp = NULL;
-    if (*stack_b == NULL)
+    if (!stack_b || !*stack_b)
         return;
     temp = *stack_b;
     *stack_b = (*stack_b)->next;
@@ -26,12 +25,11 @@ void    pa(t_stack **stack_b, t_stack **stack_a)
     ft_printf("pa\n");
 }
 
-void    pb(t_stack **stack_a, t_stack **stack_b)
+void pb(t_stack **stack_a, t_stack **stack_b)
 {
     t_stack *temp;
 
-    temp = NULL;
-    if (*stack_a == NULL)
+    if (!stack_a || !*stack_a)
         return;
     temp = *stack_a;
     *stack_a = (*stack_a)->next;
@@ -39,5 +37,6 @@ void    pb(t_stack **stack_a, t_stack **stack_b)
     *stack_b = temp;
     ft_printf("pb\n");
 }
+
 
 

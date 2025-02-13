@@ -6,7 +6,7 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:00:17 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 11:22:23 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:52:34 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ t_stack     *create_stack_arr(int argc, char **argv);
 t_stack     *safe_exit(t_stack **stack, char **numbers);
 int	        is_valid_argument(char *str);
 int	        has_duplicate(t_stack *head, int value);
+void assign_indexes(t_stack *stack);
 
 // Sorting
 void        sort(t_stack **stack_a, t_stack **stack_b);
-int         is_sorted(t_stack *head);
 void	    bitwise_sort(t_stack **stack_a, t_stack **stack_b, int i);
 void	    radix_sort(t_stack **stack_a, t_stack **stack_b);
-
-// Process
-int	        process_input(int argc, char **argv, t_stack **stack_a, int start_index);
+void        sort_three(t_stack **stack_a);
+void        sort_five(t_stack **stack_a, t_stack **stack_b);
+int find_min(t_stack *stack);
 
 // Operations
 void        sa(t_stack **head);

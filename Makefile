@@ -6,7 +6,7 @@
 #    By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/12 19:29:56 by adamarqu          #+#    #+#              #
-#    Updated: 2025/02/12 19:38:21 by adamarqu         ###   ########.fr        #
+#    Updated: 2025/02/13 14:50:49 by adamarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC = $(SRC_DIR)/main.c \
        $(SRC_DIR)/push.c \
 	   $(SRC_DIR)/rotate.c \
 	   $(SRC_DIR)/rev_rotate.c \
+	   $(SRC_DIR)/small_swap.c \
 	   $(SRC_DIR)/radixsort.c
 
 OBJ = $(SRC:.c=.o)
