@@ -3,63 +3,58 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adamarqu <adamarqu@student.42porto.com>    +#+  +:+       +#+         #
+#    By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/03 15:51:51 by adamarqu          #+#    #+#              #
-#    Updated: 2024/12/03 15:52:09 by adamarqu         ###   ########.fr        #
+#    Created: 2025/02/12 19:29:56 by adamarqu          #+#    #+#              #
+#    Updated: 2025/02/12 19:38:21 by adamarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 NAME = push_swap
-BONUS_NAME = checker
-LIBFT = libft.a
-PRINTF = libftprintf.a
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -I includes -I ft_printf -g
 
-SRC_FILES =	push_swap.c sort.c Utils_functions.c \
-		quicksort.c Instructions_1.c Instructions_2.c \
-		Instructions_3.c  Instructions_4.c 
-BONUS_FILES = checker.c
-SRC_DIR = src/
-BONUS_DIR = bonus/
-SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
-BONUS = $(addprefix $(BONUS_DIR), $(BONUS_FILES))
-OBJ = ${SRC:.c=.o}
-OBJB = ${BONUS:.c=.o}
-OBJBB = ${filter-out src/push_swap.o ,${OBJ}}
-CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -g
-FSANITIZE	= -fsanitize=address -g3
-LDFLAGS = -L $(SRC_DIR) 
-INCLUDE = -I include
-RM = rm -rf
+SRC_DIR = sources
+SRC = $(SRC_DIR)/main.c \
+       $(SRC_DIR)/list_utils.c \
+       $(SRC_DIR)/validate.c \
+       $(SRC_DIR)/sort.c \
+       $(SRC_DIR)/swap.c \
+       $(SRC_DIR)/push.c \
+	   $(SRC_DIR)/rotate.c \
+	   $(SRC_DIR)/rev_rotate.c \
+	   $(SRC_DIR)/radixsort.c
 
-all:		$(NAME)
+OBJ = $(SRC:.c=.o)
 
-$(NAME) : $(OBJ)
-		@make -C libft
-		@cp libft/libft.a .
-		@make -C printf
-		@cp printf/libftprintf.a .
-		$(CC) $(CFLAGS) $(OBJ) $(INCLUDE) $(LIBFT) $(PRINTF) -o $(NAME)
+LIBFT_DIR = libft
+LIBFT_A = $(LIBFT_DIR)/libft.a
 
-bonus : $(NAME) $(OBJB)
-		$(CC) $(CFLAGS) $(OBJBB) $(OBJB) $(INCLUDE) $(LIBFT) $(PRINTF) -o $(BONUS_NAME)
+FT_PRINTF_DIR = $(LIBFT_DIR)/ft_printf
+FT_PRINTF_A = $(FT_PRINTF_DIR)/libftprintf.a
 
-clean :
-		make clean -C libft
-		make clean -C printf
-		${RM} ${OBJ}
-		${RM} ${OBJB}
+all: $(NAME)
 
-fclean : clean
-		@make fclean -C libft
-		@make fclean -C printf
-		${RM} $(NAME)
-		${RM} $(BONUS_NAME)
-		${RM} $(LIBFT)
-		${RM} libft/$(PRINTF)
-		${RM} $(PRINTF)
-		${RM} printf/$(PRINTF)
+$(LIBFT_A):
+	$(MAKE) -C $(LIBFT_DIR)
 
-re : fclean all
+$(FT_PRINTF_A):
+	$(MAKE) -C $(FT_PRINTF_DIR)
 
-.PHONY:		all clean fclean re
+$(NAME): $(LIBFT_A) $(FT_PRINTF_A) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_A) $(FT_PRINTF_A) -o $(NAME)
+
+clean:
+	rm -f $(OBJ)
+	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) clean -C $(FT_PRINTF_DIR)
+
+fclean: clean
+	rm -f $(NAME)
+	$(MAKE) fclean -C $(LIBFT_DIR)
+	$(MAKE) fclean -C $(FT_PRINTF_DIR)
+
+re: fclean all
+
+.PHONY: all clean fclean re
+

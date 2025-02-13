@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adamarqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:42:37 by adamarqu          #+#    #+#             */
-/*   Updated: 2024/10/21 11:43:06 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/12 19:59:06 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		ft_isdigit(int x);
 int		ft_isalnum(int x);
 int		ft_isascii(int x);
 int		ft_isprint(int x);
+int	    ft_isdigitplussign(int i);
 
 // Character conversion functions
 int		ft_toupper(int c);
@@ -57,6 +58,7 @@ void	*ft_calloc(size_t count, size_t size);
 // String to number conversion functions
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
+long	ft_atol(const char *str);
 
 // Output functions
 void	ft_putchar_fd(char c, int fd);
