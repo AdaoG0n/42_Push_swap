@@ -6,31 +6,30 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 19:29:40 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 15:17:11 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 22:30:02 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void rra(t_stack **stack_a) 
+void	rra(t_stack **stack_a)
 {
-    t_stack *last;
-    t_stack *second_last;
+	t_stack	*temp;
+	t_stack	*prev;
 
-    last = NULL;
-    second_last = NULL;
-    if (stack_size(*stack_a) < 2)
-        return;
-    last = *stack_a;
-    while (last->next != NULL) 
-    {
-        second_last = last;
-        last = last->next;
-    }
-    second_last->next = NULL;
-    last->next = *stack_a;
-    *stack_a = last;
-    ft_printf("rra\n");
+	if (*stack_a == NULL || (*stack_a)->next == NULL)
+		return ;
+	temp = *stack_a;
+	prev = NULL;
+	while (temp->next != NULL)
+	{
+		prev = temp;
+		temp = temp->next;
+	}
+	prev->next = NULL;
+	temp->next = *stack_a;
+	*stack_a = temp;
+	ft_printf("rra\n");
 }
 
 void rrb(t_stack **stack_b) 

@@ -6,7 +6,7 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:08:48 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 15:19:30 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:58:51 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void sort(t_stack **stack_a, t_stack **stack_b)
 
 int is_sorted(t_stack *head)
 {
+    if (!head)
+        return (1);
     while (head && head->next)
     {
         if (head->value > head->next->value)

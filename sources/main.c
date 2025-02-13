@@ -6,7 +6,7 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:59:22 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 16:03:53 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 23:15:54 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,59 +71,94 @@ t_stack    *parse_arguments(int argc, char **argv)
 		return (create_stack_arr(argc, argv));
 }	
 
-/*int	main(int argc, char **argv)  // Main to test nodes
-{
-	t_stack	*stack_a;
-	t_stack 	*current;
-	int			index = 0;
+// void test_operations(t_stack **stack_a, t_stack **stack_b)
+// {
+//     ft_printf("Initial stack A:\n");
+//     print_stack(*stack_a, "A");
 
-	stack_a = parse_arguments(argc, argv);
-	if (stack_a == NULL)
-	{
-		ft_error("Error");
-		return (1);
-	}
-	if (argc < 2)
-		return (0);
-	current = stack_a;
-	ft_printf("Stack A:\n");
-	while (current != NULL)
-	{
-		ft_printf("Node %d: Value = %d, Address = %p, Next = %p\n", 
-		          index, current->value, (void *)current, (void *)current->next);
-		current = current->next;
-		index++;
-	}
-	
-	free_stack(&stack_a);
-	return (0);
-}*/
+//     // Test sa
+//     sa(stack_a);
+//     ft_printf("After sa:\n");
+//     print_stack(*stack_a, "A");
+
+//     // Test pb
+//     pb(stack_a, stack_b);
+//     ft_printf("After pb:\n");
+//     print_stack(*stack_a, "A");
+//     print_stack(*stack_b, "B");
+
+//     // Test pa
+//     pa(stack_a, stack_b);
+//     ft_printf("After pa:\n");
+//     print_stack(*stack_a, "A");
+//     print_stack(*stack_b, "B");
+
+//     // Test ra
+//     ra(stack_a);
+//     ft_printf("After ra:\n");
+//     print_stack(*stack_a, "A");
+
+//     // Test rra
+//     rra(stack_a);
+//     ft_printf("After rra:\n");
+//     print_stack(*stack_a, "A");
+
+//     // Test rb
+//     pb(stack_a, stack_b); // Move one element to stack B for testing
+//     rb(stack_b);
+//     ft_printf("After rb:\n");
+//     print_stack(*stack_a, "A");
+//     print_stack(*stack_b, "B");
+
+//     // Test rrb
+//     rrb(stack_b);
+//     ft_printf("After rrb:\n");
+//     print_stack(*stack_a, "A");
+//     print_stack(*stack_b, "B");
+
+//     // Test ss
+//     sa(stack_a);
+//     pb(stack_a, stack_b);
+//     sb(stack_b);
+//     ss(stack_a, stack_b);
+//     ft_printf("After ss:\n");
+//     print_stack(*stack_a, "A");
+//     print_stack(*stack_b, "B");
+
+//     // Test rr
+//     ra(stack_a);
+//     rb(stack_b);
+//     rr(stack_a, stack_b);
+//     ft_printf("After rr:\n");
+//     print_stack(*stack_a, "A");
+//     print_stack(*stack_b, "B");
+
+//     // Test rrr
+//     rra(stack_a);
+//     rrb(stack_b);
+//     rrr(stack_a, stack_b);
+//     ft_printf("After rrr:\n");
+//     print_stack(*stack_a, "A");
+//     print_stack(*stack_b, "B");
+// }
 
 int main(int argc, char **argv)
 {
     t_stack *stack_a;
     t_stack *stack_b;
-    int size;
 
-    if (argc < 2)
-        return (0);
     stack_a = parse_arguments(argc, argv);
-    if (!stack_a)
-    {
-        ft_putstr_fd("Error\n", 2);
-        return (1);
-    }
     stack_b = NULL;
-    size = stack_size(stack_a);
-	/*f (has_duplicate(stack_a, stack_a->value))
-	{
-    	free_stack(&stack_a);
-		stack_a = NULL;
-    	ft_error("Error");
-    	return (1);
-	}*/
-    if (is_sorted(stack_a))
-    return (free_stack(&stack_a), 0);
+
+    // Inicializar índices como -1
+    t_stack *temp = stack_a;
+    while (temp)
+    {
+        temp->index = -1;
+        temp = temp->next;
+    }
+
+    int size = stack_size(stack_a);
     if (size == 2)
         sa(&stack_a);
     else if (size == 3)
@@ -131,12 +166,17 @@ int main(int argc, char **argv)
     else if (size <= 5)
         sort_five(&stack_a, &stack_b);
     else
-		assign_indexes(stack_a);
+    {
+        assign_indexes(stack_a);
         radix_sort(&stack_a, &stack_b);
+    }
 
+    // Print the sorted stack for verification
+     print_stack(stack_a, "A");
+
+    // Free the stacks
     free_stack(&stack_a);
     free_stack(&stack_b);
 
-    return (0);
+    return 0;
 }
-

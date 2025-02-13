@@ -6,7 +6,7 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:00:17 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 15:52:34 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 22:16:55 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ t_stack     *create_stack_arr(int argc, char **argv);
 t_stack     *safe_exit(t_stack **stack, char **numbers);
 int	        is_valid_argument(char *str);
 int	        has_duplicate(t_stack *head, int value);
-void assign_indexes(t_stack *stack);
+void        assign_indexes(t_stack *stack);
+
+//debug
+void print_stack(t_stack *stack, char *name);
 
 // Sorting
 void        sort(t_stack **stack_a, t_stack **stack_b);
@@ -38,19 +41,22 @@ void	    radix_sort(t_stack **stack_a, t_stack **stack_b);
 void        sort_three(t_stack **stack_a);
 void        sort_five(t_stack **stack_a, t_stack **stack_b);
 int find_min(t_stack *stack);
+int find_position(t_stack *stack, int value);
 
 // Operations
-void        sa(t_stack **head);
-void        sb(t_stack **head);
-void        ss(t_stack **stack_a, t_stack **stack_b);
-void        pa(t_stack **stack_a, t_stack **stack_b);
-void        pb(t_stack **stack_a, t_stack **stack_b);
-void        ra(t_stack **head);
-void        rb(t_stack **head);
-void        rr(t_stack **stack_a, t_stack **stack_b);
-void        rra(t_stack **head);
-void        rrb(t_stack **head);
-void        rrr(t_stack **stack_a, t_stack **stack_b);
+void    sa(t_stack **stack_a);
+void    sb(t_stack **stack_b);
+void swap(t_stack **stack);
+void ss(t_stack **stack_a, t_stack **stack_b);
+void pa(t_stack **stack_b, t_stack **stack_a);
+void pb(t_stack **stack_a, t_stack **stack_b);
+void    ra(t_stack **stack_a);
+void    rb(t_stack**stack_b);
+void    rr(t_stack **stack_a, t_stack **stack_b);
+void rra(t_stack **stack_a);
+void rrb(t_stack **stack_b);
+void reverse_rotate(t_stack **stack);
+void rrr(t_stack **stack_a, t_stack **stack_b);
 
 
 #endif

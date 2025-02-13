@@ -6,7 +6,7 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 19:29:37 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/12 19:29:38 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 22:28:24 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 void    ra(t_stack **stack_a)
 {
-    t_stack *first;
-    t_stack *last;
+	t_stack	*temp;
+	t_stack	*first;
 
-    first = NULL;
-    last = NULL;
-    if (stack_size(*stack_a) < 2)
-        return;
-    first = *stack_a;
-    last = *stack_a;
-    while (last->next != NULL)
-        last = last->next;
-    *stack_a = first->next;
-    first->next = NULL;
-    last->next = first;
-    ft_printf("ra\n");
+	if (*stack_a == NULL || (*stack_a)->next == NULL)
+		return ;
+	temp = *stack_a;
+	first = *stack_a;
+	while (temp->next != NULL)
+		temp = temp->next;
+	*stack_a = first->next;
+	first->next = NULL;
+	temp->next = first;
+	ft_printf("ra\n");
 }
 
 void    rb(t_stack**stack_b)

@@ -6,7 +6,7 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 19:29:51 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 11:46:39 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:32:23 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,23 @@ int	is_valid_argument(char *str)
 		return (0);
 	return(1);
 }
-int	has_duplicate(t_stack *head, int value)
+int has_duplicate(t_stack *stack, int value)
 {
-	while (head != NULL)
-	{
-		if (head->value == value)
-			return (1);
-		head = head->next;
-	}
-	return (0);
+    t_stack *current;
+    int count = 0;
+
+    current = stack;
+    while (current)
+    {
+        if (current->value == value)
+            count++;
+        if (count > 1)
+            return (1);
+        current = current->next;
+    }
+    return (0);
 }
+
 int	validate_arguments(t_stack **stack_a, char **numbers, int argc)
 {
 	int		i;

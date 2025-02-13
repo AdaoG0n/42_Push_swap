@@ -6,23 +6,26 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 19:29:31 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 15:18:24 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/13 22:31:06 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void    sa(t_stack **stack_a)
+void	sa(t_stack **stack_a)
 {
-    t_stack *temp;
+	t_stack	*first;
+	t_stack	*second;
 
-    if (!stack_a || !*stack_a || !(*stack_a)->next)
-        return;
-    temp = (*stack_a)->next;
-    (*stack_a)->next = temp->next;
-    temp->next = *stack_a;
-    *stack_a = temp;
-    ft_printf("sa\n");
+	if (*stack_a != NULL && (*stack_a)->next != NULL)
+	{
+		first = *stack_a;
+		second = (*stack_a)->next;
+		first->next = second->next;
+		second->next = first;
+		*stack_a = second;
+	}
+	ft_printf("sa\n");
 }
 
 void    sb(t_stack **stack_b)

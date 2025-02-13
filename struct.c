@@ -14,6 +14,6 @@ push_swap/
 │   └── radixsort       # Implementação do radixsort
 ├── libft/              # Funções libft 
 │   ├── ...             # Funçoes personalizadas da minha biblioteca libft
-│   └── ft_printf       # Implementação personalizada do printf
+│   └── ft_printf       # Implementação personalizada do ft_printf
 ├── Makefile
 
