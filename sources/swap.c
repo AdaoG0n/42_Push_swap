@@ -5,58 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 19:29:31 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 22:31:06 by adamarqu         ###   ########.fr       */
+/*   Created: 2025/02/17 22:13:33 by adamarqu          #+#    #+#             */
+/*   Updated: 2025/02/19 16:03:58 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	sa(t_stack **stack_a)
+void	sa(t_stack *stack_a)
 {
-	t_stack	*first;
-	t_stack	*second;
+	t_node	*temp;
 
-	if (*stack_a != NULL && (*stack_a)->next != NULL)
-	{
-		first = *stack_a;
-		second = (*stack_a)->next;
-		first->next = second->next;
-		second->next = first;
-		*stack_a = second;
-	}
+	if (stack_size(stack_a) < 2)
+		return ;
+	temp = stack_a->top;
+	stack_a->top = stack_a->top->next;
+	temp->next = stack_a->top->next;
+	stack_a->top->next = temp;
 	ft_printf("sa\n");
 }
 
-void    sb(t_stack **stack_b)
+void	sb(t_stack *stack_b)
 {
-    t_stack *temp;
+	t_node	*temp;
 
-    temp = NULL;
-    if (!stack_b || !*stack_b || !(*stack_b)->next)
-        return;
-    temp = (*stack_b)->next;
-    (*stack_b)->next = temp->next;
-    temp->next = *stack_b;
-    *stack_b = temp;
-    ft_printf("sb\n");
-}
-void swap(t_stack **stack)
-{
-    t_stack *temp;
-
-    if (!stack || !*stack || !(*stack)->next)
-        return;
-    temp = (*stack)->next;
-    (*stack)->next = temp->next;
-    temp->next = *stack;
-    *stack = temp;
+	if (stack_size(stack_b) < 2)
+		return ;
+	temp = stack_b->top;
+	stack_b->top = stack_b->top->next;
+	temp->next = stack_b->top->next;
+	stack_b->top->next = temp;
+	ft_printf("sb\n");
 }
 
-void ss(t_stack **stack_a, t_stack **stack_b) 
+void	ss(t_stack *stack_a, t_stack *stack_b)
 {
-    swap(stack_a);
-    swap(stack_b);
-    ft_printf("ss\n");
+	sa(stack_a);
+	sb(stack_b);
+	ft_printf("ss\n");
 }
-

@@ -6,54 +6,44 @@
 #    By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/12 19:29:56 by adamarqu          #+#    #+#              #
-#    Updated: 2025/02/13 14:50:49 by adamarqu         ###   ########.fr        #
+#    Updated: 2025/02/21 15:21:30 by adamarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I includes -I ft_printf -g
+CFLAGS = -Wall -Wextra -Werror -g
 
-SRC_DIR = sources
-SRC = $(SRC_DIR)/main.c \
-       $(SRC_DIR)/list_utils.c \
-       $(SRC_DIR)/validate.c \
-       $(SRC_DIR)/sort.c \
-       $(SRC_DIR)/swap.c \
-       $(SRC_DIR)/push.c \
-	   $(SRC_DIR)/rotate.c \
-	   $(SRC_DIR)/rev_rotate.c \
-	   $(SRC_DIR)/small_swap.c \
-	   $(SRC_DIR)/radixsort.c
+SRCS_DIR = ./sources
+SRCS = $(addprefix sources/, \
+       main.c list_utils.c error_ctrl.c validations.c \
+       push.c swap.c rotate.c rev_rotate.c \
+       sort.c small_sort.c big_sort.c cost_utils.c info_utils.c)
+				
+	
+OBJS = $(SRCS:.c=.o)
 
-OBJ = $(SRC:.c=.o)
-
-LIBFT_DIR = libft
-LIBFT_A = $(LIBFT_DIR)/libft.a
-
-FT_PRINTF_DIR = $(LIBFT_DIR)/ft_printf
-FT_PRINTF_A = $(FT_PRINTF_DIR)/libftprintf.a
+LIBFT_DIR = ./libft
+PRINTF_DIR = ./libft/ft_printf
+LIBFT = $(LIBFT_DIR)/libft.a
+PRINTF = $(PRINTF_DIR)/libftprintf.a
 
 all: $(NAME)
 
-$(LIBFT_A):
-	$(MAKE) -C $(LIBFT_DIR)
-
-$(FT_PRINTF_A):
-	$(MAKE) -C $(FT_PRINTF_DIR)
-
-$(NAME): $(LIBFT_A) $(FT_PRINTF_A) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_A) $(FT_PRINTF_A) -o $(NAME)
+$(NAME): $(OBJS)
+	@make -C $(LIBFT_DIR)
+	@make -C $(PRINTF_DIR)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(PRINTF)
 
 clean:
-	rm -f $(OBJ)
-	$(MAKE) clean -C $(LIBFT_DIR)
-	$(MAKE) clean -C $(FT_PRINTF_DIR)
+	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(PRINTF_DIR)
+	rm -f $(OBJS)
 
 fclean: clean
+	@make fclean -C $(LIBFT_DIR)
+	@make fclean -C $(PRINTF_DIR)
 	rm -f $(NAME)
-	$(MAKE) fclean -C $(LIBFT_DIR)
-	$(MAKE) fclean -C $(FT_PRINTF_DIR)
 
 re: fclean all
 

@@ -5,65 +5,75 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 16:00:14 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/13 15:48:18 by adamarqu         ###   ########.fr       */
+/*   Created: 2025/02/17 18:42:13 by adamarqu          #+#    #+#             */
+/*   Updated: 2025/02/20 21:28:41 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-t_stack	*create_node(int value)
+t_stack	*create_stack(void)
 {
-	t_stack *new_node;
-	
-	new_node = (t_stack *)malloc(sizeof(t_stack));
-	if (new_node == NULL)
+	t_stack	*stack;
+
+	stack = (t_stack *)malloc(sizeof(t_stack));
+	if (!stack)
 		return (NULL);
-	new_node->value = value;
-	new_node->index = -1;
-	new_node->next = NULL;
-	return (new_node);
+	stack->top = NULL;
+	return (stack);
 }
 
-void	push(t_stack **head, int new_data)
+void	free_stack(t_stack *stack)
 {
-	t_stack *new_node;
-	
-	new_node = create_node(new_data);
-	if (new_node == NULL)
-		ft_error("Error");
-	new_node->next = *head;
-	*head = new_node;
-}
+	t_node	*current;
+	t_node	*next_node;
 
-void	free_stack(t_stack **head)
-{
-	t_stack *current;
-	t_stack *next;
-
-	current = *head;
-	next = NULL;
-	while (current != NULL)
+	current = stack->top;
+	while (current)
 	{
-		next = current->next;
+		next_node = current->next;
 		free(current);
-		current = next;
+		current = next_node;
 	}
-	*head = NULL;
+	free(stack);
 }
 
-int	stack_size(t_stack *head)
+void	append(t_stack *stack, int value)
 {
-	int	count;
-	t_stack *current;
-	
-	count = 0;
-	current = head;
-	while (current != NULL)
+	t_node	*new_node;
+	t_node	*current;
+
+	new_node = (t_node *)malloc(sizeof(t_node));
+	if (!new_node)
+		return ;
+	new_node->value = value;
+	new_node->next = NULL;
+	if (stack->top == NULL)
 	{
-		count++;
+		stack->top = new_node;
+	}
+	else
+	{
+		current = stack->top;
+		while (current->next != NULL)
+		{
+			current = current->next;
+		}
+		current->next = new_node;
+	}
+}
+
+int	stack_size(t_stack *stack)
+{
+	t_node	*current;
+	int		size;
+
+	size = 0;
+	current = stack->top;
+	while (current)
+	{
+		size++;
 		current = current->next;
 	}
-	return (count);
+	return (size);
 }
-
