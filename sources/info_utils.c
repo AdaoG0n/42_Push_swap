@@ -6,14 +6,11 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 15:21:28 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/21 16:31:41 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:46:42 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-static t_node	*get_min(t_stack *stack);
-static t_node	*get_max(t_stack *stack);
 
 static t_node	*get_min(t_stack *stack)
 {
@@ -72,38 +69,42 @@ void	reset_info_a(t_stack *stack_a, t_info *info)
 	}
 }
 
+static void	rotate_and_push(t_stack *stack_a, t_stack *stack_b, t_info *info, int target_pos)
+{
+    int	size_a;
+
+    size_a = stack_size(stack_a);
+    if (target_pos <= size_a / 2)
+    {
+        while (target_pos > 0)
+        {
+            ra(stack_a);
+            target_pos--;
+        }
+    }
+    else
+    {
+        while (target_pos < size_a)
+        {
+            rra(stack_a);
+            target_pos++;
+        }
+    }
+    pa(stack_a, stack_b);
+    reset_info_a(stack_a, info);
+}
+
 void	push_back(t_stack *stack_a, t_stack *stack_b, t_info *info)
 {
-	int		target_pos;
-	int		size_a;
+    int	target_pos;
 
-	while (stack_b->top)
-	{
-		size_a = stack_size(stack_a);
-		target_pos = find_target_position(stack_a, stack_b->top->value);
-		if (target_pos <= size_a / 2)
-        {
-            while (target_pos > 0)
-            {
-                ra(stack_a);
-                target_pos--;
-            }
-        }
-		else
-        {
-             while (target_pos < size_a)
-            {
-                rra(stack_a);
-                target_pos++;
-            }
-        }
-		pa(stack_a, stack_b);
-		reset_info_a(stack_a, info);
-	}
-    while (stack_a->top->value != info->min->value)
+    while (stack_b->top)
     {
-        ra(stack_a);
+        target_pos = find_target_position(stack_a, stack_b->top->value);
+        rotate_and_push(stack_a, stack_b, info, target_pos);
     }
+    while (stack_a->top->value != info->min->value)
+        ra(stack_a);
 }
 
 int	find_target_position(t_stack *stack_a, int value)
@@ -128,70 +129,4 @@ int	find_target_position(t_stack *stack_a, int value)
 		pos++;
 	}
 	return (target_pos);
-}
-
-static int	check_sintax(char *str)
-{
-	if (!*str)
-		return (0);
-	while (*str)
-	{
-		if (!ft_isdigit(*str) && !ft_is_signal(*str))
-			return (0);
-		if (ft_is_signal(*str) && !ft_isdigit(*(str + 1)))
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
-static	int	check_int(char *str)
-{
-	long	i;
-
-	i = ft_atol(str);
-	if (i > INT_MAX || i < INT_MIN)
-		return (0);
-	return (1);
-}
-
-static	int	check_duplicate(char **av)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	while (av[j])
-	{
-		i = j + 1;
-		while (av[j] && av[i])
-		{
-			if (ft_atol(av[j]) == ft_atol(av[i]))
-				return (0);
-			i++;
-		}
-		j++;
-	}
-	return (1);
-}
-
-char	**check_input(char **av)
-{
-	int	i;
-
-	i = -1;
-	while (av[++i])
-	{
-		if (!check_sintax(av[i]) || !check_int(av[i]))
-			return (NULL);
-	}
-	if (!check_duplicate(av))
-        return (NULL);
-	return (av);
-}
-int	ft_is_signal(char c)
-{
-    if (c == '-' || c == '+')
-        return (1);
-    return (0);
 }

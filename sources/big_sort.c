@@ -6,7 +6,7 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 15:21:02 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/21 16:42:19 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:42:41 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,14 @@ static void	push_chunks_to_b(t_stack *a, t_stack *b, t_info *info_a)
 			rb(b);
 			pushed++;
 		}
-		else if (a->top->index <= pushed + chunk_size && a->top->value != info_a->max->value)
+		else if (a->top->index <= pushed + chunk_size
+			&& a->top->value != info_a->max->value)
 		{
 			pb(a, b);
 			pushed++;
 		}
 		else
-        {
-            ra(a);
-        }
+			ra(a);
 	}
 }
 
@@ -47,7 +46,6 @@ void	sort_big(t_stack *stack_a, t_stack *stack_b)
 
 	info_a = (t_info){0};
 	reset_info_a(stack_a, &info_a);
-	assign_index(stack_a);
 	push_chunks_to_b(stack_a, stack_b, &info_a);
 	sort_three(stack_a);
 	push_back(stack_a, stack_b, &info_a);

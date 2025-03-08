@@ -63,15 +63,11 @@ int		valid_args(char *str, t_stack *stack);
 int		split_str(char *str, t_stack *stack);
 int		is_double(t_stack *stack, int value);
 int		parse_args(int argc, char **argv, t_stack *stack_a);
-char	**check_input(char **av);
-int		ft_is_signal(char c);
 
 // operations functions
 void	pa(t_stack *stack_a, t_stack *stack_b);
 void	pb(t_stack *stack_a, t_stack *stack_b);
 void	sa(t_stack *stack_a);
-void	sb(t_stack *stack_b);
-void	ss(t_stack *stack_a, t_stack *stack_b);
 void	rra(t_stack *stack_a);
 void	ra(t_stack *stack_a);
 void	rb(t_stack *stack_b);
@@ -89,13 +85,8 @@ void	find_and_move_min(t_stack *stack_a);
 int		is_reverse_sorted(t_stack *stack);
 int		is_sorted(t_stack *stack);
 void	sort_big(t_stack *stack_a, t_stack *stack_b);
-void	push_to_b(t_stack *stack_a, t_stack *stack_b, t_info *info);
 void	push_back(t_stack *stack_a, t_stack *stack_b, t_info *info);
 void	reset_info_a(t_stack *stack_a, t_info *info);
-void	find_mid_n(t_stack *stack_a, t_info *info, int *mid_nb);
-void	find_a_cost(t_stack *stack_a, t_lower *lower);
-void	find_b_cost(t_stack *stack_b, t_lower *lower);
-void	rotate_stacks(t_stack *stack_a, t_stack *stack_b, t_moves *moves);
 int		find_target_position(t_stack *stack_a, int value);
 
 // utils functions
@@ -110,4 +101,3 @@ void	append(t_stack *stack, int value);
 int		stack_size(t_stack *stack);
 
 #endif
-

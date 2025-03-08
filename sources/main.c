@@ -6,7 +6,7 @@
 /*   By: adamarqu <adamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:08 by adamarqu          #+#    #+#             */
-/*   Updated: 2025/02/21 16:14:46 by adamarqu         ###   ########.fr       */
+/*   Updated: 2025/02/22 10:28:28 by adamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,47 +63,10 @@ int	parse_args(int argc, char **argv, t_stack *stack_a)
 
 int	handle_input(int argc, char **argv, t_stack *stack_a, t_stack *stack_b)
 {
-	char **new_argv;
-	int i = 1;
-	int num;
-
 	if (argc < 2)
 		return (0);
-
-	if (argc == 2)
-	{
-		new_argv = ft_split(argv[1], ' ');
-		if (!new_argv)
-			return (ft_error("Error"), free_stack(stack_a), free_stack(stack_b), 1);
-	}
-	else
-	{
-		new_argv = argv + 1;
-	}
-
-	new_argv = check_input(new_argv);
-	if (!new_argv)
-		return (ft_error("Error"), free_stack(stack_a), free_stack(stack_b), 1);
-
-	if (argc == 2)
-	{
-		while (new_argv[i])
-		{
-			num = ft_atol(new_argv[i]);
-			append(stack_a, (int)num);
-			i++;
-		}
-	}
-	else
-	{
-		i = 1;
-		while (i < argc)
-		{
-			num = ft_atol(argv[i]);
-			append(stack_a, (int)num);
-			i++;
-		}
-	}
+	if (!parse_args(argc, argv, stack_a))
+		return (free_stack(stack_a), free_stack(stack_b), 1);
 	sort_and_clean(stack_a, stack_b);
 	return (free_stack(stack_a), free_stack(stack_b), 0);
 }

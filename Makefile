@@ -18,7 +18,7 @@ SRCS_DIR = ./sources
 SRCS = $(addprefix sources/, \
        main.c list_utils.c error_ctrl.c validations.c \
        push.c swap.c rotate.c rev_rotate.c \
-       sort.c small_sort.c big_sort.c cost_utils.c info_utils.c)
+       sort.c small_sort.c big_sort.c info_utils.c)
 				
 	
 OBJS = $(SRCS:.c=.o)
